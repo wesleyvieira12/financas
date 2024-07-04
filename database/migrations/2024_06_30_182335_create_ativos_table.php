@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('ativos', function (Blueprint $table) {
             $table->id();
-            $table->string('id_api');
+            $table->string('api_id');
             $table->string('fonte');
             $table->string('nome');
             $table->decimal('valor_atual');

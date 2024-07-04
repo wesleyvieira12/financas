@@ -5,14 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class Lancamento extends Model
+class AtivoUser extends Model
 {
     use HasFactory;
 
-    public function ativo_user(): BelongsTo
+    public function ativo():BelongsTo
     {
-        return $this->belongsTo(AtivoUser::class);
+        return $this->belongsTo(Ativo::class);
     }
 }

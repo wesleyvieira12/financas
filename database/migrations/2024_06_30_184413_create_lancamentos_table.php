@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('lancamentos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('id_ativo_usuario')->constrained()->onDelete('cascade');
+            $table->foreignId('ativo_user_id')->constrained()->onDelete('cascade');
             $table->decimal('quantidade');
             $table->decimal('valor_compra');
             $table->date('data_compra');

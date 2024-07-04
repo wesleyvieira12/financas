@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('ativo_user', function (Blueprint $table) {
+        Schema::create('ativo_users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')
                 ->constrained()
@@ -20,12 +20,12 @@ return new class extends Migration
                 ->nullable()
                 ->constrained()
                 ->onDelete('cascade');
-            $table->foreignId('id_ativo_tipo')
+            $table->foreignId('ativo_tipo_id')
                 ->nullable()
                 ->constant()
                 ->onDelete('cascade');
             $table->integer('meta');
-            $table->string('nome_ativo');
+            $table->string('nome_ativo')->nullable();
             $table->decimal('quantidade');
             $table->decimal('valor_atual');
             $table->timestamps();
