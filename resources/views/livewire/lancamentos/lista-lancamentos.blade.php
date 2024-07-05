@@ -1,28 +1,37 @@
 <?php
 
-use App\Models\Lancamento;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
+use Livewire\WithPagination;
 
 new #[Layout('layouts.app')] class extends Component
 {
-    public $lancamentos = [];
+    use WithPagination;
 
-    public function mount()
+    public $exibeModalCriarLancamento = false;
+
+    public function with(): array
     {
-        $this->lancamentos =
-            auth()
-            ->user()
-            ->lancamentos()
-            ->with([
-                'ativo_user:id,ativo_id' => [
-                    'ativo:id,ativo_tipo_id,nome' => [
-                        'ativo_tipo:id,nome'
+        return [
+            'lancamentos' => auth()
+                ->user()
+                ->lancamentos()
+                ->with([
+                    'ativo_user:id,ativo_id' => [
+                        'ativo:id,ativo_tipo_id,nome' => [
+                            'ativo_tipo:id,nome'
+                        ]
                     ]
-                ]
-            ])->get();
+                ])
+                ->paginate(20)
+        ];      
     }
-}; ?>
+
+    public function abrirModalCriarLancamento()
+    {
+
+    }
+} ?>
 
 <div>
     <x-slot name="header">
@@ -34,6 +43,7 @@ new #[Layout('layouts.app')] class extends Component
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
+                <livewire:lancamentos.cria-lancamento/>
                 <div class="p-6 text-gray-900 dark:text-gray-100">
                     <div class="relative overflow-x-auto">
                         <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
@@ -78,6 +88,9 @@ new #[Layout('layouts.app')] class extends Component
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="mt-6">
+                            {{$lancamentos->links()}}
+                        </div>
                     </div>
                 </div>
             </div>

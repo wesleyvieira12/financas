@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\LancamentoTipoEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,6 +18,7 @@ return new class extends Migration
             $table->decimal('quantidade');
             $table->decimal('valor_compra');
             $table->date('data_compra');
+            $table->string('tipo')->default(LancamentoTipoEnum::COMPRA);
             $table->timestamps();
         });
     }
